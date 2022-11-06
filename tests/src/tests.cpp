@@ -11,7 +11,7 @@ extern "C"
 // See Catch2's documentation: https://github.com/catchorg/Catch2/blob/devel/docs/tutorial.md#scaling-up
 
 TEST_CASE("sum")
-{   
+{
     // Empty array
     int a[5] = {1,-3,1,1,5};
     REQUIRE(sum(a,0)==0);
@@ -25,7 +25,7 @@ TEST_CASE("search")
 {
 
     int a[5] = {2,-3,1,1,5};
-    // True 
+    // True
     REQUIRE(search(a,5,5)==true);
     REQUIRE(search(a,5,1)==true);
     REQUIRE(search(a,5,2)==true);
@@ -37,7 +37,7 @@ TEST_CASE("search")
 
 TEST_CASE("tree")
 {
-      node *root = make_node (4,
+      Tnode *root = make_node (4,
 			  make_node (7,
 				     make_node (28,
 						make_node (77,

@@ -8,23 +8,50 @@
 #include "dfs.h"
 
 
-void DFT (node * root)
-{
-	// Implement DFS
-	// Hint: You can use print_node, print_tree and/or print_stack.
+void DFT (Tnode * root){
+
+	//Der bliver lavet en stack til tallene
+	stack* treeStack = (malloc(sizeof(stack)));
+	treeStack->top = NULL;
+
+	//Rooten bliver pushet til stacken
+	push(treeStack, root);
+
+	//Hele træet bliver kørt igennem
+	while(!isEmpty(treeStack)){
+
+		//Det øverste i stacken bliver poppet
+		Tnode *head = pop(treeStack);
+
+		//Hvis der findes et rchild bliver det pushet til stacken
+		if(head->rchild != NULL){
+			push(treeStack, head->rchild);
+		}
+
+		//Findes der et lchild bliver det pushet til stacken
+		if(head->lchild != NULL){
+			push(treeStack, head->lchild);
+		}
+	}
+
 }
 
-node *make_node (int num, node * left, node * right)
+Tnode *make_node (int num, Tnode * left, Tnode * right)
 {
-	return 0;
+
+	//Alloker plads til en ny Tnode
+	Tnode *newTnode = (malloc(sizeof(Tnode)));
+
+	//Her bliver den nye node lavet og derefter returned
+	newTnode->lchild = left;
+	newTnode->rchild = right;
+	newTnode->num = num;
+
+	return newTnode;
 }
 
-void free_node (node * p)
-{
-	
-}
 
-
+/*
 void print_node (node * p)
 {
 
@@ -39,7 +66,7 @@ void print_tree (node * p, int depth)
 {
   for (int i = 0; i < depth; i = i + 1)
     printf (" ");
-  printf ("| ");
+    printf ("| ");
 
   if (p == NULL)
     printf ("NULL\n");
@@ -55,30 +82,53 @@ void print_tree (node * p, int depth)
   if (p->rchild)
     print_tree (p->rchild, depth + 1);
 }
+*/
 
-stack *push (stack * topp, node * node)
+void push(stack *topp, Tnode *tnode)
 {
-	return 0;
+
+	//Alloker plads til element
+	node *elm = (malloc(sizeof(node)));
+
+	//elm's next pejer på det øverste stacken
+	elm->next = topp->top;
+
+	//Nu får top værdien af elm
+	topp->top = elm;
+
+	//Dataen kommer ind i stacken
+	elm->data = tnode;
+
 }
 
-bool isEmpty (stack * topp)
-{
-  return false;
-}
+bool isEmpty (stack * topp){
 
-node *top (stack * topp)
-{
-	return 0;
+	//Stopper når stack's top er NULL
+	return topp->top == NULL;
 }
 
 // Utility function to pop topp  
 // element from the stack 
 
-stack *pop (stack * topp)
+Tnode *pop (stack * topp)
 {
-	return 0;
+
+	//Tjekker om stack's top er NULL
+	if(topp->top !=NULL){
+		//Hvis ikke bliver val tildelt data'en af stack's top
+		Tnode* val = topp->top->data;
+		//top rykker en gang frem
+		topp->top = topp->top->next;
+
+		return val;
+	}
+
+	//Hvis top == NULL bliver NULL retuneret
+	return NULL;
+
 }
 
+/*
 void print_stack (stack * topp)
 {
   struct stack *temp = topp;
@@ -96,3 +146,4 @@ void print_stack (stack * topp)
 
   return;
 }
+*/
